@@ -20,7 +20,7 @@ The project covers **all mandatory requirements** mentioned in the assignment PD
 
 ---
 
-# ✅ Features (Matches Assignment Requirements)
+# ✅ Features 
 
 ### **1. Product Listing Page ("/")**
 - Responsive product grid
@@ -69,7 +69,7 @@ Clean, modular, readable code as expected in a SPA assignment.
 
 ---
 
-# 🌟 Additional Features (Beyond Assignment Requirements)
+# 🌟 Additional Features 
 
 ### **1. Light/Dark Theme System**
 - Fully implemented theme toggle
