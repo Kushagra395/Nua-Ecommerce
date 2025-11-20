@@ -1,0 +1,21 @@
+/* Tailwind CSS v3 - Standard configuration without DaisyUI */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom design tokens using CSS variables */
+/* updated color scheme to match Myntra's pink/red branding */
+:root {
+  --primary: #ec407a;
+  --primary-focus: #d81b60;
+  --secondary: #f57c00;
+  --accent: #ff6f00;
+}
+
+body {
+  @apply bg-white text-gray-900 font-sans;
+}
+
+html.dark body {
+  @apply bg-gray-900 text-gray-100;
+}

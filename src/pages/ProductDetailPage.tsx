@@ -1,0 +1,187 @@
+import { useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { useProduct, useProducts } from '@/hooks'
+import { useDispatch } from 'react-redux'
+import { cartActions } from '@/stores/cartSlice'
+import { Button } from '@/components/ui/button'
+import { Star, ShoppingCart } from 'lucide-react'
+import { useState } from 'react'
+
+export function ProductDetailPage() {
+  const { id } = useParams<{ id: string }>()
+  const productId = id ? parseInt(id) : undefined
+  const { data: product, isLoading, isError } = useProduct(productId)
+  const { data: products } = useProducts()
+  const [qty, setQty] = useState(1)
+  const dispatch = useDispatch()
+
+  if (isLoading) {
+    return <div className="py-8 text-center">Loading product details...</div>
+  }
+
+  if (isError || !product) {
+    return <div className="py-8 text-center text-error">Failed to load product</div>
+  }
+
+  // Get related products from same category
+  const relatedProducts = products
+    ?.filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 5) || []
+
+  const handleAddToCart = () => {
+    dispatch(
+      cartActions.addItem({
+        ...product,
+        qty,
+      })
+    )
+    setQty(1)
+  }
+
+  const renderStars = (rating: number) => {
+    return (
+      <div className="flex items-center gap-2">
+        <div className="flex gap-1">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              className={i < Math.round(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+            />
+          ))}
+        </div>
+        <span className="text-sm text-base-content/60">{rating}/5</span>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>{product.title} - nua</title>
+        <meta name="description" content={product.description.substring(0, 160)} />
+        <meta property="og:title" content={product.title} />
+        <meta property="og:description" content={product.description.substring(0, 160)} />
+        <meta property="og:price:amount" content={product.price.toString()} />
+        <meta property="og:price:currency" content="USD" />
+      </Helmet>
+
+      <div className="py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Image Gallery */}
+          <div className="flex flex-col gap-4">
+            <div className="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-96">
+              <img
+                src={product.image || "/placeholder.svg"}
+                alt={product.title}
+                className="max-h-96 max-w-full object-contain"
+              />
+            </div>
+            {/* Thumbnail Gallery */}
+            <div className="flex gap-4">
+              {[0, 1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="bg-base-200 rounded-lg p-4 flex-1 cursor-pointer hover:bg-base-300 transition"
+                >
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={`${product.title} view ${i + 1}`}
+                    className="w-full h-20 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Product Details */}
+          <div className="flex flex-col gap-6">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
+              <p className="text-base-content/60 text-sm mb-4">Category: {product.category}</p>
+              {product.rating && renderStars(product.rating.rate)}
+            </div>
+
+            {/* Price */}
+            <div>
+              <p className="text-4xl font-bold text-primary">${product.price.toFixed(2)}</p>
+              {product.rating && (
+                <p className="text-sm text-base-content/60 mt-2">
+                  ({product.rating.count} reviews)
+                </p>
+              )}
+            </div>
+
+            {/* Description */}
+            <div>
+              <h3 className="font-semibold mb-2">Description</h3>
+              <p className="text-base-content/70 leading-relaxed">{product.description}</p>
+            </div>
+
+            {/* Quantity and Add to Cart */}
+            <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-2 border border-base-300 rounded-lg p-2">
+                <button
+                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  className="btn btn-ghost btn-sm btn-square"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  value={qty}
+                  onChange={(e) => setQty(Math.max(1, Math.min(5, parseInt(e.target.value) || 1)))}
+                  min="1"
+                  max="5"
+                  className="w-12 text-center text-sm font-semibold focus:outline-none"
+                  aria-label="Product quantity"
+                />
+                <button
+                  onClick={() => setQty(Math.min(5, qty + 1))}
+                  className="btn btn-ghost btn-sm btn-square"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+              <Button
+                onClick={handleAddToCart}
+                className="flex-1"
+                size="lg"
+                aria-label={`Add ${product.title} to cart`}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Add to Cart
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold mb-6">You may also like</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4">
+              {relatedProducts.map((relProduct) => (
+                <div key={relProduct.id} className="bg-base-200 rounded-lg p-4 flex-shrink-0">
+                  <div className="bg-base-100 rounded p-2 mb-2 h-32 flex items-center justify-center">
+                    <img
+                      src={relProduct.image || "/placeholder.svg"}
+                      alt={relProduct.title}
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                  <h3 className="font-semibold text-sm line-clamp-2">{relProduct.title}</h3>
+                  <p className="text-sm text-primary font-bold mt-2">
+                    ${relProduct.price.toFixed(2)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  )
+}
