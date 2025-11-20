@@ -20,6 +20,11 @@ export function CheckoutPage() {
     resolver: zodResolver(checkoutSchema),
   })
 
+  // Input Fix Class
+  const inputStyles =
+    "bg-white text-black dark:bg-gray-800 dark:text-white dark:border-gray-600 " +
+    "placeholder-gray-400 dark:placeholder-gray-300"
+
   const onSubmit = async (data: CheckoutFormData) => {
     if (items.length === 0) {
       alert('Your cart is empty')
@@ -90,63 +95,96 @@ export function CheckoutPage() {
                 {/* Full Name */}
                 <div className="col-span-1 sm:col-span-2">
                   <label className="block mb-1 font-semibold">Full Name *</label>
-                  <Input {...register('fullName')} placeholder="John Doe" />
+                  <Input 
+                    {...register('fullName')} 
+                    placeholder="Ram Kumar"
+                    className={inputStyles}
+                  />
                   {errors.fullName && <p className="text-error text-sm mt-1">{errors.fullName.message}</p>}
                 </div>
 
                 {/* Email */}
                 <div>
                   <label className="block mb-1 font-semibold">Email *</label>
-                  <Input {...register('email')} type="email" placeholder="john@example.com" />
+                  <Input 
+                    {...register('email')} 
+                    type="email" 
+                    placeholder="ram@example.com"
+                    className={inputStyles}
+                  />
                   {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
-                {/* Phone  */}
+                {/* Phone */}
                 <div>
                   <label className="block mb-1 font-semibold">Phone *</label>
-                  <Input {...register('phone')} placeholder="9876543210" />
+                  <Input 
+                    {...register('phone')} 
+                    placeholder="9876543210"
+                    className={inputStyles}
+                  />
                   {errors.phone && <p className="text-error text-sm mt-1">{errors.phone.message}</p>}
                 </div>
 
                 {/* Address Line 1 */}
                 <div className="col-span-1 sm:col-span-2">
                   <label className="block mb-1 font-semibold">Address Line 1 *</label>
-                  <Input {...register('addressLine1')} placeholder="123 Main Street" />
+                  <Input 
+                    {...register('addressLine1')}
+                    placeholder="C7 Anand venue, MG Road"
+                    className={inputStyles}
+                  />
                   {errors.addressLine1 && <p className="text-error text-sm mt-1">{errors.addressLine1.message}</p>}
                 </div>
 
                 {/* City */}
                 <div>
                   <label className="block mb-1 font-semibold">City *</label>
-                  <Input {...register('city')} placeholder="Mumbai" />
+                  <Input 
+                    {...register('city')} 
+                    placeholder="Mumbai"
+                    className={inputStyles}
+                  />
                   {errors.city && <p className="text-error text-sm mt-1">{errors.city.message}</p>}
                 </div>
 
-                {/* State  */}
+                {/* State */}
                 <div>
                   <label className="block mb-1 font-semibold">State *</label>
-                  <Input {...register('state')} placeholder="MH" />
+                  <Input 
+                    {...register('state')} 
+                    placeholder="MH"
+                    className={inputStyles}
+                  />
                   {errors.state && <p className="text-error text-sm mt-1">{errors.state.message}</p>}
                 </div>
 
                 {/* Pincode */}
                 <div>
                   <label className="block mb-1 font-semibold">Pincode *</label>
-                  <Input {...register('pincode')} placeholder="400001" />
+                  <Input 
+                    {...register('pincode')} 
+                    placeholder="400001"
+                    className={inputStyles}
+                  />
                   {errors.pincode && <p className="text-error text-sm mt-1">{errors.pincode.message}</p>}
                 </div>
 
-                {/* Country code */}
+                {/* Country */}
                 <div>
                   <label className="block mb-1 font-semibold">Country *</label>
-                  <Input {...register('country')} placeholder="India" />
+                  <Input 
+                    {...register('country')} 
+                    placeholder="India"
+                    className={inputStyles}
+                  />
                   {errors.country && <p className="text-error text-sm mt-1">{errors.country.message}</p>}
                 </div>
 
               </div>
             </div>
 
-            {/* orderd placed */}
+            {/* BUTTON */}
             <Button
               type="submit"
               className="w-full bg-blue-600 text-white hover:bg-blue-700"
@@ -158,12 +196,11 @@ export function CheckoutPage() {
           </form>
         </div>
 
-     
+        {/* ORDER SUMMARY */}
         <div>
           <div className="bg-base-200 rounded-xl p-6 shadow-md sticky top-24">
             <h2 className="text-xl font-bold mb-6">Order Summary</h2>
 
-            {/* ITEM LIST  */}
             <div className="space-y-4 max-h-72 overflow-y-auto pr-2 mb-6">
               {items.map((item) => (
                 <div key={item.id} className="flex justify-between text-sm pb-4 border-b border-base-300">
@@ -176,7 +213,6 @@ export function CheckoutPage() {
               ))}
             </div>
 
-            {/* TOTALS amount  */}
             <div className="space-y-2 border-t border-base-300 pt-4">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
@@ -195,7 +231,9 @@ export function CheckoutPage() {
             <div className="border-t mt-4 pt-4 border-base-300">
               <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>
-                <span className="text-primary">${(total + total * 0.1).toFixed(2)}</span>
+                <span className="text-primary">
+                  ${(total + total * 0.1).toFixed(2)}
+                </span>
               </div>
             </div>
             
