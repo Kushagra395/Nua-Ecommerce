@@ -7,35 +7,21 @@ import { CheckoutPage } from '@/pages/CheckoutPage'
 import { OrderConfirmationPage } from '@/pages/OrderConfirmationPage'
 import { ProductListPage } from '@/pages/ProductListPage'
 import { CategoryPage } from '@/pages/CategoryPage'
+import { SearchPage } from '@/pages/SearchPage'
+import { WishlistPage } from '@/pages/WishlistPage'
 
 export const routes: RouteObject[] = [
   {
     element: <MainLayout />,
     children: [
-      {
-        path: '/',
-        element: <HomePage />,
-      },
-      {
-        path: '/product/:id',
-        element: <ProductDetailPage />,
-      },
-      {
-        path: '/category/:slug',
-        element: <CategoryPage />,
-      },
-      {
-        path: '/cart',
-        element: <CartPage />,
-      },
-      {
-        path: '/checkout',
-        element: <CheckoutPage />,
-      },
-      {
-        path: '/order-confirmation',
-        element: <OrderConfirmationPage />,
-      },
+      { path: '/', element: <HomePage /> },
+      { path: '/product/:id', element: <ProductDetailPage /> },
+      { path: '/category/:slug', element: <CategoryPage /> },
+      { path: '/search', element: <SearchPage /> },
+      { path: '/wishlist', element: <WishlistPage /> },
+      { path: '/cart', element: <CartPage /> },
+      { path: '/checkout', element: <CheckoutPage /> },
+      { path: '/order-confirmation', element: <OrderConfirmationPage /> },
     ],
   },
 ]
