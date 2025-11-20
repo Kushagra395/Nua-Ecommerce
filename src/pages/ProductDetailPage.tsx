@@ -10,7 +10,7 @@ import { useState } from 'react'
 export function ProductDetailPage() {
   const { id } = useParams<{ id: string }>()
   const productId = id ? parseInt(id) : undefined
-  const { data: product, isLoading, isError } = useProduct(productId)
+  const { data: product, isLoading, isError }  = useProduct(productId)
   const { data: products } = useProducts()
   const [qty, setQty] = useState(1)
   const dispatch = useDispatch()

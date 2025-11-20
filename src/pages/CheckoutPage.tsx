@@ -101,7 +101,7 @@ export function CheckoutPage() {
                   {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
-                {/* Phone */}
+                {/* Phone  */}
                 <div>
                   <label className="block mb-1 font-semibold">Phone *</label>
                   <Input {...register('phone')} placeholder="9876543210" />
@@ -122,7 +122,7 @@ export function CheckoutPage() {
                   {errors.city && <p className="text-error text-sm mt-1">{errors.city.message}</p>}
                 </div>
 
-                {/* State */}
+                {/* State  */}
                 <div>
                   <label className="block mb-1 font-semibold">State *</label>
                   <Input {...register('state')} placeholder="MH" />
@@ -136,7 +136,7 @@ export function CheckoutPage() {
                   {errors.pincode && <p className="text-error text-sm mt-1">{errors.pincode.message}</p>}
                 </div>
 
-                {/* Country */}
+                {/* Country code */}
                 <div>
                   <label className="block mb-1 font-semibold">Country *</label>
                   <Input {...register('country')} placeholder="India" />
@@ -146,7 +146,7 @@ export function CheckoutPage() {
               </div>
             </div>
 
-            {/* PLACE ORDER */}
+            {/* orderd placed */}
             <Button
               type="submit"
               className="w-full bg-blue-600 text-white hover:bg-blue-700"
@@ -158,12 +158,12 @@ export function CheckoutPage() {
           </form>
         </div>
 
-        {/* SUMMARY SECTION */}
+     
         <div>
           <div className="bg-base-200 rounded-xl p-6 shadow-md sticky top-24">
             <h2 className="text-xl font-bold mb-6">Order Summary</h2>
 
-            {/* ITEM LIST */}
+            {/* ITEM LIST  */}
             <div className="space-y-4 max-h-72 overflow-y-auto pr-2 mb-6">
               {items.map((item) => (
                 <div key={item.id} className="flex justify-between text-sm pb-4 border-b border-base-300">
@@ -176,7 +176,7 @@ export function CheckoutPage() {
               ))}
             </div>
 
-            {/* TOTALS */}
+            {/* TOTALS amount  */}
             <div className="space-y-2 border-t border-base-300 pt-4">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
