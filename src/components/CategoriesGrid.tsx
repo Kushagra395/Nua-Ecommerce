@@ -1,6 +1,6 @@
 import { CategoryTile } from './CategoryTile'
 
-// Category data with images from cardpg folder
+
 const CATEGORY_DATA = [
   {
     slug: 'all',
@@ -8,7 +8,6 @@ const CATEGORY_DATA = [
     image: '/cardpg/all.jpg',
     subtitle: 'Complete Your Look'
   },
-  
   {
     slug: 'mens-wear',
     title: "Men's Wear",
@@ -33,8 +32,7 @@ const CATEGORY_DATA = [
     image: '/cardpg/electronic.jpg',
     subtitle: 'Latest Gadgets'
   },
-   
-  {
+   {
     slug: 'backpacks-bags',
     title: 'Backpacks & Bags',
     image: '/cardpg/bag.jpg',

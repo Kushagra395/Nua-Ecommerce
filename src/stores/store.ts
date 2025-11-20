@@ -13,7 +13,7 @@ const persistStateMiddleware: Middleware = (storeApi) => (next) => (action) => {
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cart))
     } catch {
-      console.warn('[v0] Failed to persist cart to localStorage')
+      console.warn(' Failed to persist cart to localStorage')
     }
   }
 
@@ -22,7 +22,7 @@ const persistStateMiddleware: Middleware = (storeApi) => (next) => (action) => {
     try {
       localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(state.wishlist))
     } catch {
-      console.warn('[v0] Failed to persist wishlist to localStorage')
+      console.warn(' Failed to persist wishlist to localStorage')
     }
   }
 
@@ -43,7 +43,7 @@ if (persistedCart) {
     const cartState: CartState = JSON.parse(persistedCart)
     store.dispatch({ type: 'cart/hydrateCart', payload: cartState })
   } catch {
-    console.warn('[v0] Failed to hydrate cart from localStorage')
+    console.warn(' Failed to hydrate cart from localStorage')
   }
 }
 
@@ -53,7 +53,7 @@ if (persistedWishlist) {
     const wishlistState: WishlistState = JSON.parse(persistedWishlist)
     store.dispatch({ type: 'wishlist/hydrateWishlist', payload: wishlistState })
   } catch {
-    console.warn('[v0] Failed to hydrate wishlist from localStorage')
+    console.warn('Failed to hydrate wishlist from localStorage')
   }
 }
 

@@ -18,7 +18,7 @@ export function ProductListPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState<SortOption>('popularity')
 
-  // Debounced search handler
+ search handler
   const debouncedSearch = useCallback((query: string) => {
     setSearchQuery(query)
   }, [])

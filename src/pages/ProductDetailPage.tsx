@@ -24,7 +24,7 @@ export function ProductDetailPage() {
     return <div className="py-8 text-center text-red-600 dark:text-red-400">Failed to load product</div>
   }
 
-  // Get related products from same category
+  //  products from same category
   const relatedProducts = products
     ?.filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 5) || []
@@ -84,7 +84,7 @@ export function ProductDetailPage() {
                   className="max-h-96 max-w-full object-contain"
                 />
               </div>
-              {/* Thumbnail Gallery - REMOVED */}
+              {/* Thumbnail Gallery */}
             </div>
 
             {/* Product Details */}
@@ -111,7 +111,7 @@ export function ProductDetailPage() {
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{product.description}</p>
               </div>
 
-              {/* Quantity and Add to Cart */}
+              {/*  Add to Cart */}
               <div className="flex gap-4 items-center">
                 <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-white dark:bg-gray-800">
                   <button

@@ -9,7 +9,7 @@ export function HeroBanner() {
   const [isHovered, setIsHovered] = useState(false)
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Each slide now has image, brand logo, offer text, and CTA - clean side-by-side composition
+  
   const slides = [
     {
       id: 1,

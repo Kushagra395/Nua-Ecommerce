@@ -12,7 +12,7 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center">
-        {/* Back Button */}
+       
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 transition-colors"
@@ -21,7 +21,7 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
           <span>Back to Home</span>
         </Link>
 
-        {/* Icon */}
+        
         <div className="mb-8 flex justify-center">
           <div className="relative">
             <div className="absolute inset-0 bg-blue-500 dark:bg-blue-600 rounded-full opacity-20 animate-pulse"></div>
@@ -44,7 +44,7 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
           We're working hard to bring you something amazing. Stay tuned for updates!
         </p>
 
-        {/* Notify Me Form */}
+        {/* Notifactio form */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400" />

@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800">
-      {/* Product Image Section */}
+      
       <div
         className="relative aspect-square cursor-pointer overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
         onClick={handleImageClick}
@@ -90,7 +90,7 @@ export function ProductCard({ product }: ProductCardProps) {
         />
       </div>
 
-      {/* Card Body */}
+      
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="flex items-center justify-between gap-2 mb-1">
           <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-gray-600 dark:bg-gray-700 dark:text-gray-300">

@@ -13,6 +13,6 @@ export const saveProductsToLocalStorage = (data: unknown): void => {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify(data))
   } catch {
-    console.warn('[v0] Failed to save products to localStorage')
+    console.warn(' Failed to save products to localStorage')
   }
 }
