@@ -41,7 +41,7 @@ export function PriceSlider({ minPrice, maxPrice, minBound, maxBound, onChange }
   return (
     <div className="space-y-3">
       {/* Display values */}
-      <div className="flex justify-between text-sm font-medium text-gray-700">
+      <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300">
         <span>${localMin}</span>
         <span>${localMax}</span>
       </div>

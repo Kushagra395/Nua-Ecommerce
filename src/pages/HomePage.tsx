@@ -7,11 +7,9 @@ import { ProductSkeleton } from '@/components/ProductSkeleton'
 export function HomePage() {
    
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-gray-900 min-h-screen">
       <HeroBanner />
       <CategoriesSection />
-
-     
     </div>
   )
 }

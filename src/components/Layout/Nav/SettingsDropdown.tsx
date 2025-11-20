@@ -37,26 +37,26 @@ export function SettingsDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 transition-colors group"
+        className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 dark:hover:text-pink-400 transition-colors group"
         aria-label="Settings menu"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Settings className="w-5 h-5 text-gray-800 group-hover:text-pink-600 transition-colors" />
-        <span className="text-xs text-gray-700 group-hover:text-pink-600 transition-colors">Settings</span>
+        <Settings className="w-5 h-5 text-gray-800 dark:text-gray-200 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" />
+        <span className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Settings</span>
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg py-3 w-56 z-50">
+        <div className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-3 w-56 z-50">
           {/* Theme Toggle */}
-          <div className="px-4 py-2.5 flex items-center justify-between border-b border-gray-200">
-            <span className="text-sm font-medium text-gray-700">Theme</span>
+          <div className="px-4 py-2.5 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
             <button
               onClick={toggleTheme}
               role="switch"
               aria-checked={theme === 'dark'}
               aria-label="Toggle theme"
-              className="flex items-center bg-gray-200 rounded-full w-12 h-6 p-0.5 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-600"
+              className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-full w-12 h-6 p-0.5 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-600 dark:focus:ring-pink-400"
               style={{
                 backgroundColor: theme === 'dark' ? '#ec4899' : '#e5e7eb',
               }}
@@ -80,14 +80,14 @@ export function SettingsDropdown() {
           <Link
             to="/signin"
             onClick={() => setIsOpen(false)}
-            className="block w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            className="block w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Sign In
           </Link>
           <Link
             to="/signup"
             onClick={() => setIsOpen(false)}
-            className="block w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            className="block w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Sign Up
           </Link>

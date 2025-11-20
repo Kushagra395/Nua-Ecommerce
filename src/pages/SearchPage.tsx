@@ -25,14 +25,14 @@ export function SearchPage() {
   }, [query, products])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
             {query ? `Search Results for "${query}"` : "Search Products"}
           </h1>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {query 
               ? `Found ${searchResults.length} ${searchResults.length === 1 ? 'product' : 'products'}`
               : "Enter a search term to find products"
@@ -50,8 +50,8 @@ export function SearchPage() {
         ) : query && searchResults.length === 0 ? (
           /* No Results */
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg mb-4">No products found for "{query}"</p>
-            <p className="text-gray-400 text-sm">Try searching with different keywords</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg mb-4">No products found for "{query}"</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm">Try searching with different keywords</p>
           </div>
         ) : query && searchResults.length > 0 ? (
           /* Results */
@@ -59,7 +59,7 @@ export function SearchPage() {
         ) : (
           /* Empty State */
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">Start typing to search for products</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg">Start typing to search for products</p>
           </div>
         )}
       </div>

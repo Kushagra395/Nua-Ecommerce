@@ -9,6 +9,7 @@ import { ProductListPage } from '@/pages/ProductListPage'
 import { CategoryPage } from '@/pages/CategoryPage'
 import { SearchPage } from '@/pages/SearchPage'
 import { WishlistPage } from '@/pages/WishlistPage'
+import { ComingSoonPage } from '@/pages/ComingSoonPage'
 
 export const routes: RouteObject[] = [
   {
@@ -22,6 +23,8 @@ export const routes: RouteObject[] = [
       { path: '/cart', element: <CartPage /> },
       { path: '/checkout', element: <CheckoutPage /> },
       { path: '/order-confirmation', element: <OrderConfirmationPage /> },
+      { path: '/signin', element: <ComingSoonPage feature="Sign In" /> },
+      { path: '/signup', element: <ComingSoonPage feature="Sign Up" /> },
     ],
   },
 ]

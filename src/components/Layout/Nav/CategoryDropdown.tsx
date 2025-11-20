@@ -47,18 +47,18 @@ export function CategoryDropdown() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsOpen(true)}
-        className="flex items-center gap-1 text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors py-2"
+        className="flex items-center gap-1 text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors py-2"
         aria-label="All Categories"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         All Categories
-        <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown size={16} className={`transition-transform text-gray-800 dark:text-gray-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
         <div
-          className="absolute top-full left-0 mt-0 bg-white border border-gray-200 rounded-lg shadow-lg py-3 px-3 w-64 z-50"
+          className="absolute top-full left-0 mt-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-3 px-3 w-64 z-50"
           onMouseLeave={() => setIsOpen(false)}
           role="menu"
         >
@@ -68,11 +68,11 @@ export function CategoryDropdown() {
                 key={category.slug}
                 to={`/category/${category.slug}`}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 transition-colors group"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
                 role="menuitem"
               >
                 <span className="text-lg">{category.icon}</span>
-                <span className="text-sm font-medium text-gray-700 group-hover:text-pink-600 transition-colors">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
                   {category.title}
                 </span>
               </Link>

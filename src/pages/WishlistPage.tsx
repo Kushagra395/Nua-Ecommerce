@@ -21,17 +21,17 @@ export function WishlistPage() {
 
   if (itemCount === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6 text-center px-6">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pink-50 text-pink-500">
-          <Heart size={28} className="fill-pink-500" />
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-6 text-center px-6 bg-gray-50 dark:bg-gray-900">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pink-50 dark:bg-pink-900/30 text-pink-500 dark:text-pink-400">
+          <Heart size={28} className="fill-pink-500 dark:fill-pink-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">Your wishlist is feeling lonely</h1>
-          <p className="text-gray-500 max-w-md">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Your wishlist is feeling lonely</h1>
+          <p className="text-gray-500 dark:text-gray-400 max-w-md">
             Tap the heart icon on any product to save it here for quick access later.
           </p>
         </div>
-        <Button onClick={() => navigate("/")} className="bg-pink-500 hover:bg-pink-600">
+        <Button onClick={() => navigate("/")} className="bg-pink-500 hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700 text-white">
           Browse products
         </Button>
       </div>
@@ -39,22 +39,22 @@ export function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-pink-500">Wishlist</p>
-            <h1 className="text-3xl font-bold text-gray-900">{headline}</h1>
-            <p className="text-sm text-gray-500">
-              Keep track of the products you love. Move them to your bag whenever you’re ready.
+            <p className="text-sm font-semibold uppercase tracking-wide text-pink-500 dark:text-pink-400">Wishlist</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{headline}</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Keep track of the products you love. Move them to your bag whenever you're ready.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button variant="outline" onClick={() => dispatch(wishlistActions.clearWishlist())} className="gap-2 text-gray-600">
+            <Button variant="outline" onClick={() => dispatch(wishlistActions.clearWishlist())} className="gap-2 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">
               <Trash2 size={16} />
               Clear wishlist
             </Button>
-            <Button onClick={() => navigate("/cart")} className="bg-pink-500 hover:bg-pink-600">
+            <Button onClick={() => navigate("/cart")} className="bg-pink-500 hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700 text-white">
               Go to bag
             </Button>
           </div>

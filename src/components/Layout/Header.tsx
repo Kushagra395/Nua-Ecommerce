@@ -34,8 +34,8 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-white shadow-sm">
-      <div className="hidden sm:block bg-gray-900 text-white text-xs py-1.5 text-center">
+    <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div className="hidden sm:block bg-gray-900 dark:bg-gray-950 text-white text-xs py-1.5 text-center">
         Free delivery on orders over ₹499 | Contact us for support
       </div>
 
@@ -43,8 +43,14 @@ export function Header() {
         {/* Desktop Layout */}
         <div className="hidden md:flex items-center justify-between gap-8 py-3">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-pink-600 whitespace-nowrap flex-shrink-0">
-            m
+          <Link 
+            to="/" 
+            className="flex-shrink-0"
+            aria-label="nua homepage"
+          >
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 dark:from-blue-500 dark:to-blue-400 bg-clip-text text-transparent tracking-tight">
+              Nua Store
+            </span>
           </Link>
 
           <nav className="flex items-center gap-6">
@@ -52,31 +58,31 @@ export function Header() {
             
             <Link
               to="/category/mens-wear"
-              className="text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors"
+              className="text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               Men
             </Link>
             <Link
               to="/category/womens-wear"
-              className="text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors"
+              className="text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               Women
             </Link>
             <Link
               to="/category/jewellery"
-              className="text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors"
+              className="text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               Jewellery
             </Link>
             <Link
               to="/category/electronics"
-              className="text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors"
+              className="text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               Electronics
             </Link>
             <Link
               to="/category/backpacks-bags"
-              className="text-xs font-semibold text-gray-800 uppercase tracking-wide hover:text-pink-600 transition-colors"
+              className="text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               Backpacks
             </Link>
@@ -94,28 +100,28 @@ export function Header() {
             {/* Wishlist */}
             <Link
               to="/wishlist"
-              className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 transition-colors group"
+              className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 dark:hover:text-pink-400 transition-colors group"
               aria-label="Wishlist"
             >
-              <Heart className="w-5 h-5 text-gray-800 group-hover:text-pink-600 transition-colors" />
-              <span className="text-xs text-gray-700 group-hover:text-pink-600 transition-colors">Wishlist</span>
+              <Heart className="w-5 h-5 text-gray-800 dark:text-gray-200 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" />
+              <span className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Wishlist</span>
             </Link>
 
             {/* Bag/Cart */}
             <Link
               to="/cart"
-              className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 transition-colors relative group"
+              className="flex flex-col items-center gap-1 p-1 hover:text-pink-600 dark:hover:text-pink-400 transition-colors relative group"
               aria-label={`Shopping bag with ${cartCount} items`}
             >
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-gray-800 group-hover:text-pink-600 transition-colors" />
+                <ShoppingBag className="w-5 h-5 text-gray-800 dark:text-gray-200 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full">
                     {cartCount > 99 ? '99+' : cartCount}
                   </span>
                 )}
               </div>
-              <span className="text-xs text-gray-700 group-hover:text-pink-600 transition-colors">Bag</span>
+              <span className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Bag</span>
             </Link>
           </div>
         </div>
@@ -125,25 +131,31 @@ export function Header() {
           {/* Hamburger Menu */}
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             aria-label="Toggle menu"
             aria-expanded={isDrawerOpen}
           >
-            {isDrawerOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isDrawerOpen ? <X className="w-6 h-6 text-gray-900 dark:text-white" /> : <Menu className="w-6 h-6 text-gray-900 dark:text-white" />}
           </button>
 
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-pink-600">
-            m
+          <Link 
+            to="/" 
+            className="flex-shrink-0"
+            aria-label="nua homepage"
+          >
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 dark:from-blue-500 dark:to-blue-400 bg-clip-text text-transparent tracking-tight">
+              nua
+            </span>
           </Link>
 
           {/* Icons */}
           <div className="flex items-center gap-2">
-            <Link to="/wishlist" className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <Heart className="w-5 h-5 text-gray-700" />
+            <Link to="/wishlist" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Heart className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </Link>
-            <Link to="/cart" className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <ShoppingBag className="w-5 h-5 text-gray-700" />
+            <Link to="/cart" className="relative p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <ShoppingBag className="w-5 h-5 text-gray-700 dark:text-gray-300" />
               {cartCount > 0 && (
                 <span className="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full">
                   {cartCount > 99 ? '99+' : cartCount}

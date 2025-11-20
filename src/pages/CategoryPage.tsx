@@ -132,31 +132,31 @@ export function CategoryPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-gray-900 min-h-screen">
       {/* Breadcrumb & Header */}
-      <div className="py-8 px-4 md:px-8 bg-gray-50 border-b">
+      <div className="py-8 px-4 md:px-8 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto">
-          <nav className="text-sm text-gray-600 mb-4">
-            <a href="/" className="hover:text-gray-900">
+          <nav className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <a href="/" className="hover:text-gray-900 dark:hover:text-white">
               Home
             </a>
             <span className="mx-2">/</span>
-            <span className="text-gray-900 font-semibold">{categoryConfig?.title}</span>
+            <span className="text-gray-900 dark:text-white font-semibold">{categoryConfig?.title}</span>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">{categoryConfig?.title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{categoryConfig?.title}</h1>
         </div>
       </div>
 
       {/* Main Content with Sidebar */}
-      <section className="py-12 px-4 md:px-8 bg-white">
+      <section className="py-12 px-4 md:px-8 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           {/* Error State */}
-          {error && <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 mb-8">{error}</div>}
+          {error && <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400 mb-8">{error}</div>}
 
           {/* Mobile Filters Button */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden mb-6 flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            className="lg:hidden mb-6 flex items-center gap-2 px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded-lg text-sm font-medium hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
             aria-label="Toggle filters"
           >
             <Sliders className="w-4 h-4" />
@@ -196,8 +196,8 @@ export function CategoryPage() {
             <div className="flex-1 min-w-0">
               {/* Products Count & Status */}
               {!error && !isLoading && products.length > 0 && (
-                <div className="mb-6 pb-4 border-b border-gray-200">
-                  <p className="text-sm text-gray-600">
+                <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {filteredAndSortedProducts.length === 0
                       ? "No products match your filters"
                       : `Showing ${displayedProducts.length} of ${filteredAndSortedProducts.length} products`}
@@ -216,8 +216,8 @@ export function CategoryPage() {
                 </div>
               ) : filteredAndSortedProducts.length === 0 ? (
                 <div className="text-center py-16">
-                  <p className="text-lg text-gray-500 mb-4">No items found</p>
-                  <p className="text-sm text-gray-400">Try adjusting your filters</p>
+                  <p className="text-lg text-gray-500 dark:text-gray-400 mb-4">No items found</p>
+                  <p className="text-sm text-gray-400 dark:text-gray-500">Try adjusting your filters</p>
                 </div>
               ) : (
                 <>
@@ -228,7 +228,7 @@ export function CategoryPage() {
                     <div className="flex justify-center mt-12">
                       <button
                         onClick={() => setDisplayCount(displayCount + 12)}
-                        className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                        className="px-8 py-3 bg-blue-600 dark:bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
                         aria-label="Load more products"
                       >
                         Load More

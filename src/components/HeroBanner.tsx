@@ -12,43 +12,47 @@ export function HeroBanner() {
   const slides = [
     {
       id: 1,
-      image: "/fwd-fashion-brand-yellow-casual.jpg",
-      brandLogo: "fwd",
-      brandName: "FWD",
-      mainText: "Gen-Z Fashion For All",
-      offer: "UNDER ₹999",
+      image: "/Bannerpg/womenbanner.jpg",
+      brandLogo: "nua",
+      brandName: "Women's Collection",
+      mainText: "Discover the latest trends in women's fashion",
+      offer: "UP TO 40% OFF",
       cta: "Shop Now",
-      bgColor: "from-yellow-50 to-amber-50",
+      bgColor: "from-pink-50 to-rose-50",
+      objectPosition: "center",
     },
     {
       id: 2,
-      image: "/us-polo-association-men-beach.jpg",
-      brandLogo: "polo",
-      brandName: "U.S. POLO ASSN.",
-      mainText: "Premium Casual Wear",
-      offer: "Up To 50% Off",
+      image: "/Bannerpg/menbanner.jpg",
+      brandLogo: "nua",
+      brandName: "Men's Collection",
+      mainText: "Premium casual wear for the modern man",
+      offer: "UP TO 50% OFF",
       cta: "Explore",
       bgColor: "from-blue-50 to-cyan-50",
+      objectPosition: "center",
     },
     {
       id: 3,
-      image: "/luxury-handbags-leather-brown.jpg",
-      brandLogo: "haute",
-      brandName: "Haute Sauce",
-      mainText: "Handbags",
-      offer: "50–70% Off",
+      image: "/Bannerpg/bagbanner.jpg",
+      brandLogo: "nua",
+      brandName: "Bags & Backpacks",
+      mainText: "Travel in style with our premium collection",
+      offer: "50–70% OFF",
       cta: "Explore",
       bgColor: "from-emerald-50 to-teal-50",
+      objectPosition: "center right",
     },
     {
       id: 4,
-      image: "/premium-watches-lifestyle-product.jpg",
-      brandLogo: "watch",
-      brandName: "Premium Timepieces",
-      mainText: "Elegance on Your Wrist",
-      offer: "UP TO 80% OFF",
+      image: "/Bannerpg/jewerllybanner.jpg",
+      brandLogo: "nua",
+      brandName: "Jewellery Collection",
+      mainText: "Elegant pieces to complete your look",
+      offer: "UP TO 30% OFF",
       cta: "Shop Now",
-      bgColor: "from-slate-50 to-gray-50",
+      bgColor: "from-amber-50 to-yellow-50",
+      objectPosition: "center",
     },
   ]
 
@@ -96,7 +100,7 @@ export function HeroBanner() {
   }
 
   return (
-    <div className="relative w-full overflow-hidden" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className="relative w-full overflow-hidden bg-gray-50 dark:bg-gray-900" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="relative w-full h-48 sm:h-56 md:h-96 lg:h-[450px] overflow-hidden">
         {slides.map((slide, idx) => {
           const isActive = idx === currentSlide
@@ -107,15 +111,17 @@ export function HeroBanner() {
                 isActive ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgColor}`} />
+              <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgColor} dark:opacity-80`} />
 
               <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center">
                 {/* Image section - left on desktop, top on mobile */}
                 <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center overflow-hidden">
                   <img
-                    src={slide.image || "/placeholder.svg"}
+                    src={slide.image}
                     alt={slide.brandName}
                     className="w-full h-full object-cover"
+                    style={{ objectPosition: slide.objectPosition || "center" }}
+                    loading={idx === 0 ? "eager" : "lazy"}
                   />
                 </div>
 
@@ -137,7 +143,7 @@ export function HeroBanner() {
                     <p className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900">{slide.offer}</p>
                   </div>
 
-                  <button className="px-6 md:px-8 py-2.5 md:py-3 bg-white text-gray-900 font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                  <button className="px-6 md:px-8 py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
                     {slide.cta} →
                   </button>
                 </div>
@@ -148,18 +154,18 @@ export function HeroBanner() {
 
         <button
           onClick={prevSlide}
-          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 hover:bg-gray-900/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
+          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 text-white" />
+          <ChevronLeft className="w-6 h-6 text-white dark:text-gray-900" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 hover:bg-gray-900/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
+          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 text-white" />
+          <ChevronRight className="w-6 h-6 text-white dark:text-gray-900" />
         </button>
 
         <div className="absolute bottom-3 md:bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
@@ -168,7 +174,9 @@ export function HeroBanner() {
               key={idx}
               onClick={() => goToSlide(idx)}
               className={`transition-all duration-500 rounded-full ${
-                idx === currentSlide ? "bg-gray-900 w-8 h-2.5" : "bg-gray-300 hover:bg-gray-400 w-2 h-2"
+                idx === currentSlide 
+                  ? "bg-gray-900 dark:bg-white w-8 h-2.5" 
+                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 w-2 h-2"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
               aria-current={idx === currentSlide ? "true" : "false"}

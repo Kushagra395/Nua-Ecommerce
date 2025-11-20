@@ -96,25 +96,24 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
             }
           }}
           onBlur={() => {
-            // Delay to allow clicks on suggestions
             setTimeout(() => setIsFocused(false), 200)
           }}
-          className={`w-full px-4 py-2.5 pl-10 pr-10 bg-gray-100 rounded-full text-sm text-gray-900 placeholder-gray-500 transition-all focus:outline-none focus:ring-2 focus:ring-pink-200 ${
-            isFocused ? 'bg-gray-50' : 'bg-gray-100'
+          className={`w-full px-4 py-2.5 pl-10 pr-10 bg-gray-100 dark:bg-gray-800 rounded-full text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 ${
+            isFocused ? 'bg-gray-50 dark:bg-gray-700' : 'bg-gray-100 dark:bg-gray-800'
           }`}
           aria-label="Search products"
           aria-expanded={showSuggestions}
           aria-autocomplete="list"
         />
         <Search
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none"
           size={18}
         />
         {searchValue && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             aria-label="Clear search"
           >
             <X size={16} />
@@ -124,36 +123,36 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
 
       {/* Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
           <div className="p-2">
             {suggestions.map((product: Product) => (
               <button
                 key={product.id}
                 onClick={() => handleSuggestionClick(product)}
-                className="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors group"
+                className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors group"
               >
                 <div className="flex items-center gap-3">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-12 h-12 object-contain rounded border border-gray-200"
+                    className="w-12 h-12 object-contain rounded border border-gray-200 dark:border-gray-700"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 group-hover:text-pink-600 truncate">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 truncate">
                       {product.title}
                     </p>
-                    <p className="text-xs text-gray-500">{product.category}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{product.category}</p>
                   </div>
-                  <div className="text-sm font-semibold text-gray-900">
+                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
                     ${product.price.toFixed(2)}
                   </div>
                 </div>
               </button>
             ))}
-            <div className="border-t border-gray-200 mt-2 pt-2">
+            <div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
               <button
                 onClick={handleSubmit}
-                className="w-full text-left px-4 py-2 text-sm text-pink-600 hover:bg-gray-50 rounded-lg font-medium"
+                className="w-full text-left px-4 py-2 text-sm text-pink-600 dark:text-pink-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium"
               >
                 See all results for "{searchValue}"
               </button>
@@ -164,8 +163,8 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
 
       {/* No Results Message */}
       {showSuggestions && searchValue.trim().length >= 2 && suggestions.length === 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4">
-          <p className="text-sm text-gray-500">No products found matching "{searchValue}"</p>
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 p-4">
+          <p className="text-sm text-gray-500 dark:text-gray-400">No products found matching "{searchValue}"</p>
         </div>
       )}
     </div>
