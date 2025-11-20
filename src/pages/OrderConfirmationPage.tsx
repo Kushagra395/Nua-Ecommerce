@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export function OrderConfirmationPage() {
   return (
     <div className="py-8">
-      <h1 className="text-4xl font-bold mb-8">Order Confirmation — placeholder</h1>
+      <h1 className="text-4xl font-bold mb-8">Order Confirmation</h1>
       {/* 
         Expected content:
         - Order success message

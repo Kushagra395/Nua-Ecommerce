@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useProduct, useProducts } from '@/hooks'
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ export function ProductDetailPage() {
   const { data: products } = useProducts()
   const [qty, setQty] = useState(1)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   if (isLoading) {
     return <div className="py-8 text-center">Loading product details...</div>
@@ -36,6 +37,11 @@ export function ProductDetailPage() {
       })
     )
     setQty(1)
+  }
+
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const renderStars = (rating: number) => {
@@ -66,121 +72,119 @@ export function ProductDetailPage() {
         <meta property="og:price:currency" content="USD" />
       </Helmet>
 
-      <div className="py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Image Gallery */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-96">
-              <img
-                src={product.image || "/placeholder.svg"}
-                alt={product.title}
-                className="max-h-96 max-w-full object-contain"
-              />
-            </div>
-            {/* Thumbnail Gallery */}
-            <div className="flex gap-4">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="bg-base-200 rounded-lg p-4 flex-1 cursor-pointer hover:bg-base-300 transition"
-                >
-                  <img
-                    src={product.image || "/placeholder.svg"}
-                    alt={`${product.title} view ${i + 1}`}
-                    className="w-full h-20 object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Product Details */}
-          <div className="flex flex-col gap-6">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-              <p className="text-base-content/60 text-sm mb-4">Category: {product.category}</p>
-              {product.rating && renderStars(product.rating.rate)}
-            </div>
-
-            {/* Price */}
-            <div>
-              <p className="text-4xl font-bold text-primary">${product.price.toFixed(2)}</p>
-              {product.rating && (
-                <p className="text-sm text-base-content/60 mt-2">
-                  ({product.rating.count} reviews)
-                </p>
-              )}
-            </div>
-
-            {/* Description */}
-            <div>
-              <h3 className="font-semibold mb-2">Description</h3>
-              <p className="text-base-content/70 leading-relaxed">{product.description}</p>
-            </div>
-
-            {/* Quantity and Add to Cart */}
-            <div className="flex gap-4 items-center">
-              <div className="flex items-center gap-2 border border-base-300 rounded-lg p-2">
-                <button
-                  onClick={() => setQty(Math.max(1, qty - 1))}
-                  className="btn btn-ghost btn-sm btn-square"
-                  aria-label="Decrease quantity"
-                >
-                  −
-                </button>
-                <input
-                  type="number"
-                  value={qty}
-                  onChange={(e) => setQty(Math.max(1, Math.min(5, parseInt(e.target.value) || 1)))}
-                  min="1"
-                  max="5"
-                  className="w-12 text-center text-sm font-semibold focus:outline-none"
-                  aria-label="Product quantity"
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Image Gallery */}
+            <div className="flex flex-col gap-4">
+              <div className="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-96">
+                <img
+                  src={product.image || "/placeholder.svg"}
+                  alt={product.title}
+                  className="max-h-96 max-w-full object-contain"
                 />
-                <button
-                  onClick={() => setQty(Math.min(5, qty + 1))}
-                  className="btn btn-ghost btn-sm btn-square"
-                  aria-label="Increase quantity"
-                >
-                  +
-                </button>
               </div>
-              <Button
-                onClick={handleAddToCart}
-                className="flex-1"
-                size="lg"
-                aria-label={`Add ${product.title} to cart`}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Add to Cart
-              </Button>
+              {/* Thumbnail Gallery - REMOVED */}
             </div>
-          </div>
-        </div>
 
-        {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-6">You may also like</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4">
-              {relatedProducts.map((relProduct) => (
-                <div key={relProduct.id} className="bg-base-200 rounded-lg p-4 flex-shrink-0">
-                  <div className="bg-base-100 rounded p-2 mb-2 h-32 flex items-center justify-center">
-                    <img
-                      src={relProduct.image || "/placeholder.svg"}
-                      alt={relProduct.title}
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  </div>
-                  <h3 className="font-semibold text-sm line-clamp-2">{relProduct.title}</h3>
-                  <p className="text-sm text-primary font-bold mt-2">
-                    ${relProduct.price.toFixed(2)}
+            {/* Product Details */}
+            <div className="flex flex-col gap-6">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
+                <p className="text-base-content/60 text-sm mb-4">Category: {product.category}</p>
+                {product.rating && renderStars(product.rating.rate)}
+              </div>
+
+              {/* Price */}
+              <div>
+                <p className="text-4xl font-bold text-primary">${product.price.toFixed(2)}</p>
+                {product.rating && (
+                  <p className="text-sm text-base-content/60 mt-2">
+                    ({product.rating.count} reviews)
                   </p>
+                )}
+              </div>
+
+              {/* Description */}
+              <div>
+                <h3 className="font-semibold mb-2">Description</h3>
+                <p className="text-base-content/70 leading-relaxed">{product.description}</p>
+              </div>
+
+              {/* Quantity and Add to Cart */}
+              <div className="flex gap-4 items-center">
+                <div className="flex items-center gap-2 border border-base-300 rounded-lg p-2">
+                  <button
+                    onClick={() => setQty(Math.max(1, qty - 1))}
+                    className="btn btn-ghost btn-sm btn-square"
+                    aria-label="Decrease quantity"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    value={qty}
+                    onChange={(e) => setQty(Math.max(1, Math.min(5, parseInt(e.target.value) || 1)))}
+                    min="1"
+                    max="5"
+                    className="w-12 text-center text-sm font-semibold focus:outline-none"
+                    aria-label="Product quantity"
+                  />
+                  <button
+                    onClick={() => setQty(Math.min(5, qty + 1))}
+                    className="btn btn-ghost btn-sm btn-square"
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
                 </div>
-              ))}
+                <Button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-blue-500 text-white hover:bg-blue-600 shadow-md transition-colors"
+                  size="lg"
+                  aria-label={`Add ${product.title} to cart`}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Add to Cart
+                </Button>
+              </div>
             </div>
           </div>
-        )}
+
+          {/* Related Products */}
+          {relatedProducts.length > 0 && (
+            <div className="mt-16 pl-4 md:pl-8">
+              <h2 className="text-2xl font-bold mb-6">You may also like</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4">
+                {relatedProducts.map((relProduct) => (
+                  <div
+                    key={relProduct.id}
+                    onClick={() => handleProductClick(relProduct.id)}
+                    className="bg-base-200 rounded-lg p-4 flex-shrink-0 cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 group"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && handleProductClick(relProduct.id)}
+                    aria-label={`View ${relProduct.title}`}
+                  >
+                    <div className="bg-base-100 rounded p-2 mb-2 h-32 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={relProduct.image || "/placeholder.svg"}
+                        alt={relProduct.title}
+                        className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
+                      />
+                    </div>
+                    <h3 className="font-semibold text-sm line-clamp-2 group-hover:text-primary transition-colors">
+                      {relProduct.title}
+                    </h3>
+                    <p className="text-sm text-primary font-bold mt-2">
+                      ${relProduct.price.toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   )

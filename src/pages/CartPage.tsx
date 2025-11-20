@@ -21,12 +21,15 @@ export function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="py-12">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
-          <p className="text-base-content/60 mb-8">Add some products to get started!</p>
+      <div className="py-20 px-4">
+        <div className="text-center space-y-4">
+          <h1 className="text-3xl font-bold">Your Cart is Empty</h1>
+          <p className="text-base-content/60">Add some products to get started!</p>
+
           <Link to="/">
-            <Button>Continue Shopping</Button>
+            <Button className="bg-blue-100 text-blue-700 hover:bg-blue-200">
+              Continue Shopping
+            </Button>
           </Link>
         </div>
       </div>
@@ -34,15 +37,17 @@ export function CartPage() {
   }
 
   return (
-    <div className="py-8">
-      <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
+    <div className="py-10 px-4 md:px-8 lg:px-12">
+      <h1 className="text-3xl font-bold mb-10">Shopping Cart</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        
         {/* Cart Items */}
-        <div className="lg:col-span-2">
-          <div className="bg-base-200 rounded-lg overflow-hidden">
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-base-200 rounded-xl shadow-sm overflow-hidden">
+            
             {/* Table Header */}
-            <div className="hidden md:grid grid-cols-5 gap-4 p-6 bg-base-300 font-semibold">
+            <div className="hidden md:grid grid-cols-5 gap-4 px-6 py-4 bg-base-300 font-semibold text-sm">
               <div>Product</div>
               <div className="text-center">Unit Price</div>
               <div className="text-center">Quantity</div>
@@ -55,14 +60,14 @@ export function CartPage() {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="p-6 grid grid-cols-1 md:grid-cols-5 gap-4 items-center"
+                  className="px-6 py-5 grid grid-cols-1 md:grid-cols-5 gap-6 items-center"
                 >
                   {/* Product */}
                   <Link
                     to={`/product/${item.id}`}
-                    className="flex gap-4 md:col-span-1 hover:opacity-70 transition"
+                    className="flex gap-4 md:col-span-1 hover:opacity-75 transition"
                   >
-                    <div className="w-16 h-16 bg-base-100 rounded flex-shrink-0 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-base-100 rounded-lg flex items-center justify-center shadow-sm">
                       <img
                         src={item.image || "/placeholder.svg"}
                         alt={item.title}
@@ -70,24 +75,24 @@ export function CartPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold line-clamp-2">{item.title}</h3>
-                      <p className="text-sm text-base-content/60">{item.category}</p>
+                      <h3 className="font-semibold text-sm line-clamp-2">{item.title}</h3>
+                      <p className="text-xs text-base-content/60">{item.category}</p>
                     </div>
                   </Link>
 
                   {/* Unit Price */}
-                  <div className="text-center md:col-span-1">
+                  <div className="text-center">
                     <p className="md:hidden text-xs text-base-content/60">Unit Price</p>
                     <p className="font-semibold">${item.price.toFixed(2)}</p>
                   </div>
 
                   {/* Quantity */}
-                  <div className="text-center md:col-span-1">
+                  <div className="text-center">
                     <p className="md:hidden text-xs text-base-content/60">Quantity</p>
-                    <div className="flex items-center justify-center gap-2 border border-base-300 rounded w-fit mx-auto">
+                    <div className="flex items-center justify-center gap-2 border border-base-300 rounded-lg px-2 py-1">
                       <button
                         onClick={() => handleUpdateQty(item.id, item.qty - 1)}
-                        className="btn btn-ghost btn-xs"
+                        className="text-lg px-2 text-blue-600 hover:text-blue-800"
                         aria-label="Decrease quantity"
                       >
                         −
@@ -100,12 +105,11 @@ export function CartPage() {
                         }
                         min="1"
                         max="10"
-                        className="w-12 text-center text-sm focus:outline-none bg-transparent"
-                        aria-label="Product quantity"
+                        className="w-12 text-center text-sm bg-transparent"
                       />
                       <button
                         onClick={() => handleUpdateQty(item.id, item.qty + 1)}
-                        className="btn btn-ghost btn-xs"
+                        className="text-lg px-2 text-blue-600 hover:text-blue-800"
                         aria-label="Increase quantity"
                       >
                         +
@@ -114,7 +118,7 @@ export function CartPage() {
                   </div>
 
                   {/* Subtotal */}
-                  <div className="text-right md:col-span-1">
+                  <div className="text-right">
                     <p className="md:hidden text-xs text-base-content/60">Subtotal</p>
                     <p className="font-bold text-primary">
                       ${(item.price * item.qty).toFixed(2)}
@@ -122,15 +126,15 @@ export function CartPage() {
                   </div>
 
                   {/* Remove */}
-                  <div className="text-center md:col-span-1">
+                  <div className="text-center">
                     <button
                       onClick={() => handleRemove(item.id)}
-                      className="btn btn-ghost btn-sm text-error"
-                      aria-label={`Remove ${item.title} from cart`}
+                      className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
+
                 </div>
               ))}
             </div>
@@ -139,25 +143,27 @@ export function CartPage() {
 
         {/* Cart Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-base-200 rounded-lg p-6 sticky top-24 space-y-4">
+          <div className="bg-base-200 rounded-xl p-6 shadow-md sticky top-24 space-y-5">
             <h2 className="text-xl font-bold">Order Summary</h2>
 
-            <div className="space-y-2 border-t border-base-300 pt-4">
-              <div className="flex justify-between">
+            <div className="space-y-3 border-t pt-4 border-base-300">
+              <div className="flex justify-between text-sm">
                 <span>Subtotal:</span>
                 <span>${total.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between">
+
+              <div className="flex justify-between text-sm">
                 <span>Shipping:</span>
                 <span>Free</span>
               </div>
-              <div className="flex justify-between">
+
+              <div className="flex justify-between text-sm">
                 <span>Tax:</span>
                 <span>${(total * 0.1).toFixed(2)}</span>
               </div>
             </div>
 
-            <div className="border-t border-base-300 pt-4">
+            <div className="border-t pt-4 border-base-300">
               <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>
                 <span className="text-primary">
@@ -167,14 +173,19 @@ export function CartPage() {
             </div>
 
             <Link to="/checkout" className="w-full block">
-              <Button className="w-full">Proceed to Checkout</Button>
+              <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
+                Proceed to Checkout
+              </Button>
             </Link>
 
             <Link to="/" className="w-full block">
-              <button className="btn btn-ghost w-full">Continue Shopping</button>
+              <button className="w-full bg-blue-100 text-blue-700 rounded-lg py-2 hover:bg-blue-200 transition">
+                Continue Shopping
+              </button>
             </Link>
           </div>
         </div>
+
       </div>
     </div>
   )
