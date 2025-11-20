@@ -36,7 +36,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800">
       <div className="hidden sm:block bg-gray-900 dark:bg-gray-950 text-white text-xs py-1.5 text-center">
-        Free delivery on orders over ₹499 | Contact us for support
+        Free delivery on orders over $99 | Contact us for support
       </div>
 
       <div className="max-w-full px-4 md:px-8 py-0">
