@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export function HeroBanner() {
@@ -20,6 +21,7 @@ export function HeroBanner() {
       cta: "Shop Now",
       bgColor: "from-pink-50 to-rose-50",
       objectPosition: "center",
+      link: "/category/womens-wear",
     },
     {
       id: 2,
@@ -31,6 +33,7 @@ export function HeroBanner() {
       cta: "Explore",
       bgColor: "from-blue-50 to-cyan-50",
       objectPosition: "center",
+      link: "/category/mens-wear",
     },
     {
       id: 3,
@@ -42,6 +45,7 @@ export function HeroBanner() {
       cta: "Explore",
       bgColor: "from-emerald-50 to-teal-50",
       objectPosition: "center right",
+      link: "/category/backpacks-bags",
     },
     {
       id: 4,
@@ -53,6 +57,7 @@ export function HeroBanner() {
       cta: "Shop Now",
       bgColor: "from-amber-50 to-yellow-50",
       objectPosition: "center",
+      link: "/category/jewellery",
     },
   ]
 
@@ -143,9 +148,12 @@ export function HeroBanner() {
                     <p className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900">{slide.offer}</p>
                   </div>
 
-                  <button className="px-6 md:px-8 py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                  <Link 
+                    to={slide.link}
+                    className="inline-block px-6 md:px-8 py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  >
                     {slide.cta} →
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

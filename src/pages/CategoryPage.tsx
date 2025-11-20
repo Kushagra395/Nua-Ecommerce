@@ -12,11 +12,14 @@ import type { Product } from "@/api/types"
 
 export function CategoryPage() {
   const { slug } = useParams<{ slug: string }>()
+
+  const [currentCategory, setCurrentCategory] = useState<CategorySlug>((slug as CategorySlug) || "all")
   const [products, setProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [currentCategory, setCurrentCategory] = useState<CategorySlug>((slug as CategorySlug) || "all")
+  const [displayCount, setDisplayCount] = useState(12)
+
   const [filters, setFilters] = useState<FilterState>({
     sortBy: "popularity",
     priceRange: [0, 1000],
@@ -24,17 +27,31 @@ export function CategoryPage() {
     categories: [],
     searchQuery: "",
   })
-  const [displayCount, setDisplayCount] = useState(12)
+
+  useEffect(() => {
+    const newCategory = (slug as CategorySlug) || "all"
+    setCurrentCategory(newCategory)
+
+   
+    setFilters({
+      sortBy: "popularity",
+      priceRange: [0, 1000],
+      minRating: 0,
+      categories: [],
+      searchQuery: "",
+    })
+
+    setDisplayCount(12)
+  }, [slug])
 
   const categoryConfig = currentCategory ? categoryMap[currentCategory] : null
 
-  // Fetch products when category changes
+  // Fetch products
   useEffect(() => {
     const fetchCategoryProducts = async () => {
       try {
         setIsLoading(true)
         setError(null)
-        setDisplayCount(12) // Reset pagination
 
         if (!categoryConfig) {
           setError("Category not found")
@@ -72,28 +89,23 @@ export function CategoryPage() {
     }
 
     fetchCategoryProducts()
-  }, [currentCategory, categoryConfig])
+  }, [currentCategory])
 
+  // Filters + Sorting
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...products]
 
-    // Filter by price
     result = result.filter((p) => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1])
 
-    // Filter by rating
     if (filters.minRating > 0) {
       result = result.filter((p) => (p.rating?.rate || 0) >= filters.minRating)
     }
 
-    // Filter by search query (title or description)
     if (filters.searchQuery) {
-      const query = filters.searchQuery.toLowerCase()
-      result = result.filter(
-        (p) => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query),
-      )
+      const q = filters.searchQuery.toLowerCase()
+      result = result.filter((p) => p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q))
     }
 
-    // Sort
     result.sort((a, b) => {
       switch (filters.sortBy) {
         case "price-low":
@@ -113,10 +125,9 @@ export function CategoryPage() {
   const displayedProducts = filteredAndSortedProducts.slice(0, displayCount)
   const hasMore = displayedProducts.length < filteredAndSortedProducts.length
 
-  const handleCategoryChange = (newCategory: CategorySlug) => {
-    setCurrentCategory(newCategory)
+  const handleCategoryChange = (newCat: CategorySlug) => {
+    setCurrentCategory(newCat)
     setSidebarOpen(false)
-    // Reset filters when changing category
     setFilters({
       sortBy: "popularity",
       priceRange: [0, 1000],
@@ -124,16 +135,16 @@ export function CategoryPage() {
       categories: [],
       searchQuery: "",
     })
+    setDisplayCount(12)
   }
 
   const handleFiltersChange = (newFilters: FilterState) => {
     setFilters(newFilters)
-    setDisplayCount(12) // Reset pagination when filters change
+    setDisplayCount(12)
   }
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
-      {/* Breadcrumb & Header */}
       <div className="py-8 px-4 md:px-8 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto">
           <nav className="text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -147,24 +158,23 @@ export function CategoryPage() {
         </div>
       </div>
 
-      {/* Main Content with Sidebar */}
       <section className="py-12 px-4 md:px-8 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          {/* Error State */}
-          {error && <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400 mb-8">{error}</div>}
+          {error && (
+            <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400 mb-8">
+              {error}
+            </div>
+          )}
 
-          {/* Mobile Filters Button */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="lg:hidden mb-6 flex items-center gap-2 px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded-lg text-sm font-medium hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
-            aria-label="Toggle filters"
           >
             <Sliders className="w-4 h-4" />
             Filters
           </button>
 
           <div className="flex gap-8">
-            {/* Sidebar - sticky positioning below header */}
             <div className="hidden lg:block w-72 flex-shrink-0">
               <div className="sticky top-[72px] h-fit">
                 <Sidebar
@@ -178,7 +188,6 @@ export function CategoryPage() {
               </div>
             </div>
 
-            {/* Mobile Sidebar Drawer */}
             {sidebarOpen && (
               <div className="lg:hidden">
                 <Sidebar
@@ -192,9 +201,7 @@ export function CategoryPage() {
               </div>
             )}
 
-            {/* Products Section */}
             <div className="flex-1 min-w-0">
-              {/* Products Count & Status */}
               {!error && !isLoading && products.length > 0 && (
                 <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
                   <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -205,7 +212,6 @@ export function CategoryPage() {
                 </div>
               )}
 
-              {/* Products Grid */}
               {isLoading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                   {Array(8)
@@ -223,13 +229,11 @@ export function CategoryPage() {
                 <>
                   <ProductGrid products={displayedProducts} />
 
-                  {/* Load More Button */}
                   {hasMore && (
                     <div className="flex justify-center mt-12">
                       <button
                         onClick={() => setDisplayCount(displayCount + 12)}
                         className="px-8 py-3 bg-blue-600 dark:bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
-                        aria-label="Load more products"
                       >
                         Load More
                       </button>

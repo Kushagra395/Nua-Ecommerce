@@ -67,7 +67,7 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
           </form>
         </div>
 
-        {/* Additional Links */}
+       
         <div className="flex flex-wrap justify-center gap-4 text-sm">
           <Link
             to="/"

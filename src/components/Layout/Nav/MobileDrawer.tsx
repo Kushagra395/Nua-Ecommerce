@@ -42,7 +42,7 @@ export function MobileDrawer({ onClose, onSearch }: MobileDrawerProps) {
           </button>
         </div>
 
-        {/* Scrollable Content */}
+      
         <div className="flex-1 overflow-y-auto">
           {/* Search */}
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
@@ -52,7 +52,7 @@ export function MobileDrawer({ onClose, onSearch }: MobileDrawerProps) {
             }} />
           </div>
 
-          {/* Categories Section */}
+         
           <div className="border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={() => setExpandedSection(expandedSection === 'categories' ? null : 'categories')}
