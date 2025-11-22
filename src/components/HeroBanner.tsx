@@ -9,7 +9,6 @@ export function HeroBanner() {
   const [isHovered, setIsHovered] = useState(false)
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  
   const slides = [
     {
       id: 1,
@@ -105,8 +104,12 @@ export function HeroBanner() {
   }
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-50 dark:bg-gray-900" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className="relative w-full h-48 sm:h-56 md:h-96 lg:h-[450px] overflow-hidden">
+    <div
+      className="relative w-full overflow-hidden bg-gray-50 dark:bg-gray-900"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="relative w-full h-64 sm:h-72 md:h-96 lg:h-[450px] overflow-hidden">
         {slides.map((slide, idx) => {
           const isActive = idx === currentSlide
           return (
@@ -116,41 +119,61 @@ export function HeroBanner() {
                 isActive ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.bgColor} dark:opacity-80`} />
-
               <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center">
-                {/* Image section - left on desktop, top on mobile */}
-                <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center overflow-hidden">
+                {/* Mobile: Full background image with overlay */}
+                <div className="absolute inset-0 md:hidden">
                   <img
-                    src={slide.image}
+                    src={slide.image || "/placeholder.svg"}
                     alt={slide.brandName}
                     className="w-full h-full object-cover"
                     style={{ objectPosition: slide.objectPosition || "center" }}
                     loading={idx === 0 ? "eager" : "lazy"}
                   />
+                  {/* Reduced opacity overlay for mobile */}
+                  <div className="absolute inset-0 bg-black/40" />
                 </div>
 
-                {/* Content section - right on desktop, bottom on mobile */}
-                <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-col items-start justify-center px-6 sm:px-8 md:px-10 lg:px-16 py-4 md:py-0">
-                  <span className="text-xs md:text-sm font-semibold text-gray-600 uppercase tracking-wider mb-2 md:mb-3">
+                {/* Desktop: Original split layout */}
+                <div className="hidden md:flex absolute inset-0">
+                  <div
+                    className={`w-1/2 bg-gradient-to-r ${slide.bgColor} dark:opacity-80 flex items-center justify-center overflow-hidden`}
+                  >
+                    <img
+                      src={slide.image || "/placeholder.svg"}
+                      alt={slide.brandName}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: slide.objectPosition || "center" }}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                  <div className={`w-1/2 bg-gradient-to-r ${slide.bgColor} dark:opacity-80`} />
+                </div>
+
+                {/* Content - centered on mobile, right side on desktop */}
+                <div className="relative md:absolute md:right-0 w-full md:w-1/2 h-full flex flex-col items-center md:items-start justify-center px-4 sm:px-6 md:px-10 lg:px-16 py-6 md:py-0 text-center md:text-left">
+                  <span className="text-xs md:text-sm font-semibold text-white md:text-gray-600 uppercase tracking-wider mb-1 md:mb-3">
                     {slide.brandLogo}
                   </span>
 
                   {/* Brand name - bold and premium */}
-                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 md:mb-2 leading-tight">
+                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-white md:text-gray-900 mb-1 md:mb-2 leading-tight">
                     {slide.brandName}
                   </h2>
 
                   {/* Main promotional text */}
-                  <p className="text-sm md:text-base lg:text-lg text-gray-700 mb-3 md:mb-4">{slide.mainText}</p>
+                  <p className="text-sm md:text-base lg:text-lg text-white md:text-gray-700 mb-3 md:mb-4 line-clamp-2">
+                    {slide.mainText}
+                  </p>
 
-                  <div className="mb-4 md:mb-6">
-                    <p className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900">{slide.offer}</p>
+                  <div className="mb-3 md:mb-6">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-black text-white md:text-gray-900">
+                      {slide.offer}
+                    </p>
                   </div>
 
-                  <Link 
+                  <Link
                     to={slide.link}
-                    className="inline-block px-6 md:px-8 py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+                    className="inline-block px-4 md:px-8 py-2 md:py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs md:text-base rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
                     {slide.cta} →
                   </Link>
@@ -162,29 +185,29 @@ export function HeroBanner() {
 
         <button
           onClick={prevSlide}
-          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
+          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 text-white dark:text-gray-900" />
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-white dark:text-gray-900" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
+          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-900/20 dark:bg-white/20 hover:bg-gray-900/40 dark:hover:bg-white/40 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 text-white dark:text-gray-900" />
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-white dark:text-gray-900" />
         </button>
 
-        <div className="absolute bottom-3 md:bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+        <div className="absolute bottom-2 md:bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
           {slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => goToSlide(idx)}
               className={`transition-all duration-500 rounded-full ${
-                idx === currentSlide 
-                  ? "bg-gray-900 dark:bg-white w-8 h-2.5" 
-                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 w-2 h-2"
+                idx === currentSlide
+                  ? "bg-white md:bg-gray-900 w-6 h-2 md:w-8 md:h-2.5"
+                  : "bg-white/50 md:bg-gray-300 hover:bg-white md:hover:bg-gray-400 dark:hover:bg-gray-500 w-1.5 h-1.5 md:w-2 md:h-2"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
               aria-current={idx === currentSlide ? "true" : "false"}

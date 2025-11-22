@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { ArrowLeft, Mail, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -8,11 +8,13 @@ interface ComingSoonPageProps {
   feature?: string
 }
 
-export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps) {
+export function ComingSoonPage({ feature: propFeature }: ComingSoonPageProps) {
+  const [searchParams] = useSearchParams()
+  const feature = searchParams.get("feature") || propFeature || "This feature"
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center">
-       
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 transition-colors"
@@ -21,7 +23,6 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
           <span>Back to Home</span>
         </Link>
 
-        
         <div className="mb-8 flex justify-center">
           <div className="relative">
             <div className="absolute inset-0 bg-blue-500 dark:bg-blue-600 rounded-full opacity-20 animate-pulse"></div>
@@ -32,25 +33,19 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-          Coming Soon
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Coming Soon</h1>
 
         {/* Description */}
-        <p className="text-xl text-gray-600 dark:text-gray-400 mb-2">
-          {feature} is under development
-        </p>
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-2">{feature} is under development</p>
         <p className="text-base text-gray-500 dark:text-gray-500 mb-8 max-w-md mx-auto">
           We're working hard to bring you something amazing. Stay tuned for updates!
         </p>
 
-        {/* Notifactio form */}
+        {/* Notification form */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Get Notified When We Launch
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Get Notified When We Launch</h2>
           </div>
           <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
@@ -67,7 +62,6 @@ export function ComingSoonPage({ feature = "This feature" }: ComingSoonPageProps
           </form>
         </div>
 
-       
         <div className="flex flex-wrap justify-center gap-4 text-sm">
           <Link
             to="/"

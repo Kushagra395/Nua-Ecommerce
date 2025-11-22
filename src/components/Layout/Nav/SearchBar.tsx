@@ -98,7 +98,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
           onBlur={() => {
             setTimeout(() => setIsFocused(false), 200)
           }}
-          className={`w-full px-4 py-2.5 pl-10 pr-10 bg-gray-100 dark:bg-gray-800 rounded-full text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-pink-200 dark:focus:ring-pink-900 ${
+          className={`w-full px-4 py-2.5 pl-10 pr-10 bg-gray-100 dark:bg-gray-800 rounded-full text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 ${
             isFocused ? 'bg-gray-50 dark:bg-gray-700' : 'bg-gray-100 dark:bg-gray-800'
           }`}
           aria-label="Search products"
@@ -138,7 +138,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
                     className="w-12 h-12 object-contain rounded border border-gray-200 dark:border-gray-700"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 truncate">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 truncate">
                       {product.title}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">{product.category}</p>
@@ -152,7 +152,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
             <div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
               <button
                 onClick={handleSubmit}
-                className="w-full text-left px-4 py-2 text-sm text-pink-600 dark:text-pink-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium"
+                className="w-full text-left px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium"
               >
                 See all results for "{searchValue}"
               </button>

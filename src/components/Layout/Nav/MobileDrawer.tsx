@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { X, ChevronRight, Search } from 'lucide-react'
-import { SearchBar } from './SearchBar'
+"use client"
+
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { X, ChevronRight } from "lucide-react"
+import { SearchBar } from "./SearchBar"
 
 interface MobileDrawerProps {
   onClose: () => void
@@ -9,29 +11,35 @@ interface MobileDrawerProps {
 }
 
 const CATEGORIES = [
-  { slug: 'all', title: 'All Collections' },
-  { slug: 'mens-wear', title: "Men's Wear" },
-  { slug: 'womens-wear', title: "Women's Wear" },
-  { slug: 'jewellery', title: 'Jewellery' },
-  { slug: 'electronics', title: 'Electronics' },
-  { slug: 'backpacks-bags', title: 'Backpacks & Bags' },
+  { slug: "all", title: "All Collections" },
+  { slug: "mens-wear", title: "Men's Wear" },
+  { slug: "womens-wear", title: "Women's Wear" },
+  { slug: "jewellery", title: "Jewellery" },
+  { slug: "electronics", title: "Electronics" },
+  { slug: "backpacks-bags", title: "Backpacks & Bags" },
 ]
 
 const QUICK_LINKS = [
-  { title: 'My Account', href: '#' },
-  { title: 'My Orders', href: '#' },
-  { title: 'My Wishlist', href: '/wishlist' },
-  { title: 'Help & Support', href: '#' },
+  { title: "My Account", href: "/coming-soon?feature=My Account" },
+  { title: "My Orders", href: "/coming-soon?feature=My Orders" },
+  { title: "My Wishlist", href: "/wishlist" },
+  { title: "Help & Support", href: "/coming-soon?feature=Help & Support" },
 ]
 
 export function MobileDrawer({ onClose, onSearch }: MobileDrawerProps) {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 dark:bg-opacity-70">
-      <div className="absolute inset-y-0 left-0 w-4/5 max-w-sm bg-white dark:bg-gray-800 shadow-lg flex flex-col">
+    <>
+      <div
+        className="fixed inset-0 z-40 bg-black bg-opacity-50 dark:bg-opacity-70 md:hidden"
+        onClick={onClose}
+        aria-label="Close menu"
+      />
+
+      <div className="fixed inset-y-0 left-0 z-50 w-4/5 max-w-sm bg-white dark:bg-gray-800 shadow-lg flex flex-col overflow-hidden md:hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">Menu</h2>
           <button
             onClick={onClose}
@@ -42,30 +50,31 @@ export function MobileDrawer({ onClose, onSearch }: MobileDrawerProps) {
           </button>
         </div>
 
-      
         <div className="flex-1 overflow-y-auto">
           {/* Search */}
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <SearchBar onSubmit={(query) => {
-              onSearch(query)
-              onClose()
-            }} />
+            <SearchBar
+              onSubmit={(query) => {
+                onSearch(query)
+                onClose()
+              }}
+            />
           </div>
 
-         
+          {/* Categories */}
           <div className="border-b border-gray-200 dark:border-gray-700">
             <button
-              onClick={() => setExpandedSection(expandedSection === 'categories' ? null : 'categories')}
+              onClick={() => setExpandedSection(expandedSection === "categories" ? null : "categories")}
               className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <span className="font-semibold text-gray-900 dark:text-white">Categories</span>
               <ChevronRight
                 size={20}
-                className={`transition-transform text-gray-900 dark:text-white ${expandedSection === 'categories' ? 'rotate-90' : ''}`}
+                className={`transition-transform text-gray-900 dark:text-white ${expandedSection === "categories" ? "rotate-90" : ""}`}
               />
             </button>
 
-            {expandedSection === 'categories' && (
+            {expandedSection === "categories" && (
               <div className="bg-gray-50 dark:bg-gray-700/50 space-y-1">
                 {CATEGORIES.map((category) => (
                   <Link
@@ -96,24 +105,17 @@ export function MobileDrawer({ onClose, onSearch }: MobileDrawerProps) {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-800">
+        {/* Footer - fixed at bottom with flex-shrink-0 */}
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-800 flex-shrink-0">
           <Link
             to="/signin"
             onClick={onClose}
-            className="block w-full py-2.5 bg-pink-600 dark:bg-pink-700 text-white font-semibold rounded-lg hover:bg-pink-700 dark:hover:bg-pink-800 transition-colors text-center"
+            className="block w-full py-2.5 bg-blue-600 dark:bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors text-center"
           >
             Sign In
           </Link>
         </div>
       </div>
-
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0"
-        onClick={onClose}
-        aria-label="Close menu"
-      />
-    </div>
+    </>
   )
 }

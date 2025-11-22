@@ -42,8 +42,8 @@ export function SettingsDropdown() {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Settings className="w-5 h-5 text-gray-800 dark:text-gray-200 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" />
-        <span className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Settings</span>
+        <Settings className="w-5 h-5 text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+        <span className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Settings</span>
       </button>
 
       {isOpen && (

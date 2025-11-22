@@ -47,7 +47,7 @@ export function CategoryDropdown() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsOpen(true)}
-        className="flex items-center gap-1 text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-pink-600 dark:hover:text-pink-400 transition-colors py-2"
+        className="flex items-center gap-1 text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
         aria-label="All Categories"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -72,7 +72,7 @@ export function CategoryDropdown() {
                 role="menuitem"
               >
                 <span className="text-lg">{category.icon}</span>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {category.title}
                 </span>
               </Link>
